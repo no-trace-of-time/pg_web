@@ -1,16 +1,47 @@
 {application, pg_web,
- [{description, "An OTP application"},
-  {vsn, "0.1.0"},
-  {registered, []},
-  {mod, { pg_web_app, []}},
-  {applications,
-   [kernel,
-    stdlib
-   ]},
-  {env,[]},
-  {modules, []},
+  [{description, "An OTP application"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {mod, {pg_web_app, []}},
+    {applications,
+      [kernel
+        , stdlib
+        , ranch
+        , cowboy
+      ]},
+    {env, [
+      {waiting_tables, [mcht_txn_log, up_txn_log]}
+      , {waiting_timeoout, 120000}
 
-  {maintainers, []},
-  {licenses, ["Apache 2.0"]},
-  {links, []}
- ]}.
+      , {web_app_prefix, "/pg"}
+      , {http_port, 8888}
+      , {http_acceptors, 100}
+
+      , {routes, [
+        % index.html
+        {"/", cowboy_static, {priv_file, pg_web, "site/index.html"}}
+
+        %% mcht test related
+%%        , {"/pg/pay_test", cowboy_static, {priv_file, payment_gateway, "site/pay_test.html"}}
+%%        , {"/pg/simu_mcht_order", wh_simu_mcht_order, []}
+%%        , {"/pg/simu_mcht_order_final", wh_simu_mcht_order_final, []}
+%%        , {"/pg/simu_mcht_front_succ", wh_post_echo, []}
+%%        , {"/pg/simu_mcht_back_succ_info", wh_post_echo, []}
+%%        , {"/pg/simu_mcht_query", wh_simu_mcht_query, []}
+%%        , {"/pg/simu_mcht_query_final", wh_simu_mcht_query_final, []}
+%%        , {"/pg/simu_mcht_refund", wh_simu_mcht_refund, []}
+%%        , {"/pg/simu_mcht_refund_final", wh_simu_mcht_refund_final, []}
+%%        , {"/pg/simu_mcht_collect", wh_simu_mcht_collect, []}
+%%        , {"/pg/simu_mcht_collect_final", wh_simu_mcht_collect_final, []}
+
+      ]}
+    ]},
+    {modules, [
+      pg_web_app
+      , pg_web_sup
+    ]},
+
+    {maintainers, []},
+    {licenses, ["Apache 2.0"]},
+    {links, []}
+  ]}.
