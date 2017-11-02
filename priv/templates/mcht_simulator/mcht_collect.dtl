@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+</head>
+
+<body>
+<form id="collect" action="{{ actionUrl }}" target="_blank" method="post">
+    交易金额:<input type="text" name="tranAmt" value="{{ tranAmt}}"/><br>
+    订单描述:<input type="text" name="orderDesc" value="{{ orderDesc }}"/><br>
+    <!--
+    订单号:<input type="text" name="orderId" value="{{ orderId}}"/><br>
+    -->
+    商户号:
+    <select name="merchId">
+        <option value="00001">信托网-pc</option>
+        <option value="00002">信托网-手机</option>
+        <!--<option value="00003">聚信托-pc</option>-->
+        <!--<option value="00004">聚信托-手机</option>-->
+        <!--<option value="00005">民生-pc</option>-->
+        <!--<option value="00006">民生-手机</option>-->
+        <!--<option value="00007">中金支付-pc</option>-->
+        <!--<option value="00008">润孚科技-pc</option>-->
+        <!--<option value="00009">润孚科技-手机</option>-->
+        <option value="00012">聚孚金融-pc-大众燃气通道</option>
+        <option value="00013">聚孚金融-手机-大众燃气通道</option>
+        <!--<option value="90001">测试商户1</option>-->
+        <!--<option value="90002">测试商户2</option>-->
+        <!--<option value="88888">不存在的商户</option>-->
+        <!--<option value="">空商户号</option>-->
+    </select><br>
+    商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+    银行卡号:<input type="text" name="bankCardNo" value="{{ bankCardNo }}"/><br>
+    证件类型:
+    <select name="certifType">
+        <option value="01">身份证</option>
+        <option value="02">军官证</option>
+        <option value="03">护照</option>
+        <option value="04">港澳证</option>
+        <option value="05">台胞证</option>
+        <option value="06">警官证</option>
+        <option value="07">士兵证</option>
+        <option value="99">其他证件</option>
+
+    </select><br>
+    证件号码:<input type="text" name="certifId" value="{{ certifId }}"/><br>
+    用户姓名:<input type="text" name="certifName" value="{{ certifName }}"/><br>
+    手机号码:<input type="text" name="phoneNo" value="{{ phoneNo }}"/><br>
+    交易日期:<input type="text" name="tranDate" value="{{ tranDate }}"/><br>
+    交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
+    签名:<input type="text" name="signature" value="{{ signature }}"/><br>
+    <br>
+
+    代收成功后台通知地址:<input type="text" name="trustBackUrl" value="{{ trustBackUrl }}"/><br>
+
+    <input type="submit" value="提交">
+</form>
+</body>
+
+</html>

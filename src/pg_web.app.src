@@ -10,16 +10,21 @@
         , cowboy
       ]},
     {env, [
-      {waiting_tables, [mcht_txn_log, up_txn_log]}
-      , {waiting_timeoout, 120000}
-
-      , {web_app_prefix, "/pg"}
+      {web_app_prefix, <<"pg">>}
+      , {web_app_hostname, <<"http://localhost:8888">>}
       , {http_port, 8888}
       , {http_acceptors, 100}
 
+      , {simu_mcht_front_url, <<"simu_mcht_front_succ">>}
+      , {simu_mcht_back_url, <<"simu_mcht_back_succ_info">>}
+      , {simu_mcht_collect_final_url, <<"simu_mcht_collect_final">>}
+      , {simu_mcht_collect_url, <<"simu_mcht_collect">>}
+
+      , {txn_collect_url, <<"collect">>}
+
       , {routes, [
         % index.html
-        {"/", cowboy_static, {priv_file, pg_web, "site/index.html"}}
+        {<<"/">>, cowboy_static, {priv_file, pg_web, "site/index.html"}}
 
         %% mcht test related
 %%        , {"/pg/pay_test", cowboy_static, {priv_file, payment_gateway, "site/pay_test.html"}}
@@ -31,8 +36,8 @@
 %%        , {"/pg/simu_mcht_query_final", wh_simu_mcht_query_final, []}
 %%        , {"/pg/simu_mcht_refund", wh_simu_mcht_refund, []}
 %%        , {"/pg/simu_mcht_refund_final", wh_simu_mcht_refund_final, []}
-%%        , {"/pg/simu_mcht_collect", wh_simu_mcht_collect, []}
-%%        , {"/pg/simu_mcht_collect_final", wh_simu_mcht_collect_final, []}
+        , {simu_mcht_collect_url, wh_simu_mcht_collect, []}
+        , {simu_mcht_collect_final_url, wh_simu_mcht_collect_final, []}
 
       ]}
     ]},

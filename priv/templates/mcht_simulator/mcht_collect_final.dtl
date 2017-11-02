@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+</head>
+
+<body>
+<form id="collect" action="{{ actionUrl }}" target="_blank" method="post">
+    交易金额:<input type="text" name="tranAmt" value="{{ tranAmt}}"/><br>
+    订单描述:<input type="text" name="orderDesc" value="{{ orderDesc }}"/><br>
+    <!--
+    订单号:<input type="text" name="orderId" value="{{ orderId}}"/><br>
+    -->
+    商户号:<input type="text" name="merchId" value="{{ merchId}}"/><br>
+    商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+    银行卡号:<input type="text" name="bankCardNo" value="{{ bankCardNo }}"/><br>
+    交易日期:<input type="text" name="tranDate" value="{{ tranDate }}"/><br>
+    交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
+    签名:<input type="text" name="signature" value="{{ signature }}"/><br>
+    证件类型:<input type="text" name="certifType" value="{{ certifType }}"/><br>
+    证件号码:<input type="text" name="certifId" value="{{ certifId }}"/><br>
+    用户姓名:<input type="text" name="certifName" value="{{ certifName }}"/><br>
+    手机号码:<input type="text" name="phoneNo" value="{{ phoneNo }}"/><br>
+    支付成功后台通知地址:<input type="text" name="trustBackUrl" value="{{ trustBackUrl }}"/><br>
+
+    <input type="submit" value="提交代收">
+</form>
+<br>请求的签名串: [ {{ signString }} ] <br>
+</body>
+
+</html>

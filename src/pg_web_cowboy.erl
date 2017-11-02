@@ -23,6 +23,10 @@
   terminate/2,
   code_change/3]).
 
+-export([
+  add_prefix_test_1/0
+]).
+
 -define(SERVER, ?MODULE).
 -define(APP, pg_web).
 -define(DEFAULT_PORT, 8888).
@@ -180,14 +184,21 @@ wait_for() ->
   end.
 
 %%------------------------------------------------
-add_prefix(Routes) when is_list(Routes) ->
-  {ok, Prefix} = application:get_env(?APP, web_app_prefix),
-  [{Prefix ++ Url, Method, Options} || {Url, Method, Options} <- Routes].
+add_prefix_to_url(Url) ->
+  <<"/", (list_to_binary(xfutils:get_filename(?APP, [web_app_prefix, Url])))/binary>>.
 
-add_prefix_test() ->
-  application:set_env(?APP, web_app_prefix, "/prefix"),
-  ?assertEqual([{"/prefix/", cowboy_static, aaa}],
-    add_prefix([{"/", cowboy_static, aaa}])),
+
+
+
+add_prefix(Routes) when is_list(Routes) ->
+  [{add_prefix_to_url(Url), Method, Options} || {Url, Method, Options} <- Routes].
+
+add_prefix_test_1() ->
+  ?assertEqual([{<<"/pg//">>, cowboy_static, aaa}],
+    add_prefix([{<<"/">>, cowboy_static, aaa}])),
+
+  ?assertEqual(<<"/pg/simu_mcht_collect">>, add_prefix_to_url(simu_mcht_collect_url)),
+
   ok.
 
 %%------------------------------------------------
