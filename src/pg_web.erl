@@ -25,10 +25,10 @@
 -define(APP, pg_web).
 
 start() ->
-  application:start(pg_web).
+  application:start(?APP).
 
 stop() ->
-  application:stop(pg_web).
+  application:stop(?APP).
 
 
 get_prefix() ->

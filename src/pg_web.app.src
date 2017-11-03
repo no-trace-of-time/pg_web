@@ -8,6 +8,9 @@
         , stdlib
         , ranch
         , cowboy
+        , pg_mcht_enc
+        , pg_store
+        , pg_txn
       ]},
     {env, [
       {web_app_prefix, <<"pg">>}
@@ -22,6 +25,10 @@
 
       , {txn_collect_url, <<"collect">>}
 
+      %% waiting ...
+      , {waiting_for_func, {mnesia, wait_for_tables, [[up_txn_log, mcht_txn_log], 40000]}}
+
+      %% url routes
       , {routes, [
         % index.html
         {<<"/">>, cowboy_static, {priv_file, pg_web, "site/index.html"}}
@@ -38,6 +45,10 @@
 %%        , {"/pg/simu_mcht_refund_final", wh_simu_mcht_refund_final, []}
         , {simu_mcht_collect_url, wh_simu_mcht_collect, []}
         , {simu_mcht_collect_final_url, wh_simu_mcht_collect_final, []}
+
+        %% txn handle
+        , {txn_collect_url, wh_txn_mcht_req_collect, []}
+
 
       ]}
     ]},

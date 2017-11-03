@@ -47,7 +47,6 @@
 -spec(start_link() ->
   {ok, Pid :: pid()} | ignore | {error, Reason :: term()}).
 start_link() ->
-  wait_for(),
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 %%%===================================================================
@@ -69,25 +68,7 @@ start_link() ->
   {ok, State :: #state{}} | {ok, State :: #state{}, timeout() | hibernate} |
   {stop, Reason :: term()} | ignore).
 init([]) ->
-  Routes = routes(),
-  ?debugFmt("Routes = ~p", [Routes]),
-  Dispatch = cowboy_router:compile(Routes),
-  Port = port(),
-  Acceptors = acceptors(),
-  TransOpts = [{port, Port}],
-  ProtoOpts = [{env, [{dispatch, Dispatch}]}
-    , {middlewares, [cowboy_router, app_web_log, cowboy_handler]}],
-  %%{ok, _} =
-  CowBoyStarted = cowboy:start_http(http, Acceptors, TransOpts, ProtoOpts),
-  case CowBoyStarted of
-    {ok, _} ->
-      ok;
-    {already_started, _} ->
-      ok;
-    {Code, Reason} ->
-      lager:error("cowboy started error!Code = ~p,Reason = ~p", [Code, Reason])
-  end,
-  {ok, #state{}}.
+  {ok, #state{}, 0}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -135,6 +116,29 @@ handle_cast(_Request, State) ->
   {noreply, NewState :: #state{}} |
   {noreply, NewState :: #state{}, timeout() | hibernate} |
   {stop, Reason :: term(), NewState :: #state{}}).
+handle_info(timeout, State) ->
+
+  wait_for(),
+
+  Routes = routes(),
+  ?debugFmt("Routes = ~p", [Routes]),
+  Dispatch = cowboy_router:compile(Routes),
+  Port = port(),
+  Acceptors = acceptors(),
+  TransOpts = [{port, Port}],
+  ProtoOpts = [{env, [{dispatch, Dispatch}]}
+    , {middlewares, [cowboy_router, app_web_log, cowboy_handler]}],
+  %%{ok, _} =
+  CowBoyStarted = cowboy:start_http(http, Acceptors, TransOpts, ProtoOpts),
+  case CowBoyStarted of
+    {ok, _} ->
+      ok;
+    {already_started, _} ->
+      ok;
+    {Code, Reason} ->
+      lager:error("cowboy started error!Code = ~p,Reason = ~p", [Code, Reason])
+  end,
+  {noreply, State};
 handle_info(_Info, State) ->
   {noreply, State}.
 
@@ -176,10 +180,10 @@ wait_for() ->
     undefined ->
       %% start at once
       ok;
-    WaitingFun when is_function(WaitingFun, 0) ->
-      lager:error("Waiting for ....", []),
-      WaitingFun(),
-      lager:error("Waiting for ...done", []),
+    {ok, {M, F, Args}} when is_atom(M), is_atom(F), is_list(Args) ->
+      lager:info("Waiting for ....", []),
+      apply(M, F, Args),
+      lager:info("Waiting for ...done", []),
       ok
   end.
 
