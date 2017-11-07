@@ -8,6 +8,15 @@
         , stdlib
         , ranch
         , cowboy
+        , xfutils
+        , datetime_x_fin
+        , pg_model
+        , pg_repo
+        , pg_protocol
+        , pg_convert
+        , pg_mcht_protocol
+        , pg_up_protocol
+        , up_config
         , pg_mcht_enc
         , pg_store
         , pg_txn
@@ -16,6 +25,7 @@
       {web_app_prefix, <<"pg">>}
       , {web_app_hostname, <<"http://localhost:8888">>}
       , {http_port, 8888}
+      , {http_bind_ip, {127, 0, 0, 1}}
       , {http_acceptors, 100}
 
       , {simu_mcht_front_url, <<"simu_mcht_front_succ">>}

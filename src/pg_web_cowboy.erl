@@ -124,8 +124,9 @@ handle_info(timeout, State) ->
   ?debugFmt("Routes = ~p", [Routes]),
   Dispatch = cowboy_router:compile(Routes),
   Port = port(),
+  Ip = bind_ip(),
   Acceptors = acceptors(),
-  TransOpts = [{port, Port}],
+  TransOpts = [{ip, Ip}, {port, Port}],
   ProtoOpts = [{env, [{dispatch, Dispatch}]}
     , {middlewares, [cowboy_router, app_web_log, cowboy_handler]}],
   %%{ok, _} =
@@ -218,6 +219,9 @@ routes() ->
 %%------------------------------------------------
 port() ->
   application:get_env(?APP, http_port, ?DEFAULT_PORT).
+%%------------------------------------------------
+bind_ip() ->
+  application:get_env(?APP, http_bind_ip, ?DEFAULT_PORT).
 %%------------------------------------------------
 acceptors() ->
   application:get_env(?APP, http_acceptors, ?DEFAULT_ACCEPOTORS).
