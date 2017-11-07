@@ -10,6 +10,13 @@
         , cowboy
         , xfutils
         , datetime_x_fin
+        , erlydtl
+        , inets
+        , sasl
+        , public_key
+        , mnesia
+        , ssl
+        , lager
         , pg_model
         , pg_repo
         , pg_protocol
