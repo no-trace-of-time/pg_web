@@ -190,9 +190,12 @@ wait_for() ->
 
 %%------------------------------------------------
 add_prefix_to_url(Url) ->
-  <<"/", (list_to_binary(xfutils:get_filename(?APP, [web_app_prefix, Url])))/binary>>.
-
-
+  try
+    <<"/", (list_to_binary(xfutils:get_filename(?APP, [web_app_prefix, Url])))/binary>>
+  catch
+    _:X ->
+      lager:error("add prefix to url = ~p Error = ~p", [Url, X])
+  end.
 
 
 add_prefix(Routes) when is_list(Routes) ->

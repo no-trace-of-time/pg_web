@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+</head>
+
+<body>
+<form id="collect" action="{{ actionUrl }}" target="_blank" method="post">
+    交易金额:<input type="text" name="tranAmt" value="{{ tranAmt}}"/><br>
+    订单描述:<input type="text" name="orderDesc" value="{{ orderDesc }}"/><br>
+    <!--
+    订单号:<input type="text" name="orderId" value="{{ orderId}}"/><br>
+    -->
+    商户号:
+    <select name="merchId">
+        <option value="00001">信托网-pc</option>
+        <option value="00002">信托网-手机</option>
+    </select><br>
+    商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+    交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
+    交易笔数: <input type="text" name="tranCount" value="{{ tranCount }}"/><br>
+    批次号: <input type="text" name="batchNo" value="{{ batchNo }} "/><br>
+    文件原始内容:
+    <textarea name="fileContentRaw"></textarea><br>
+    请求方保留域: <input type="text" name="reqReserved" value="{{ reqReserved }}"/><br>
+    签名:<input type="text" name="signature" value="{{ signature }}"/><br>
+    <br>
+
+    代收成功后台通知地址:<input type="text" name="trustBackUrl" value="{{ trustBackUrl }}"/><br>
+
+    <input type="submit" value="提交">
+</form>
+</body>
+
+</html>

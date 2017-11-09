@@ -39,8 +39,11 @@
       , {simu_mcht_back_url, <<"simu_mcht_back_succ_info">>}
       , {simu_mcht_collect_final_url, <<"simu_mcht_collect_final">>}
       , {simu_mcht_collect_url, <<"simu_mcht_collect">>}
+      , {simu_mcht_batch_collect_final_url, <<"simu_mcht_batch_collect_final">>}
+      , {simu_mcht_batch_collect_url, <<"simu_mcht_batch_collect">>}
 
       , {txn_collect_url, <<"collect">>}
+      , {txn_batch_collect_url, <<"batch_collect">>}
 
       %% waiting ...
       , {waiting_for_func, {mnesia, wait_for_tables, [[up_txn_log, mcht_txn_log], 40000]}}
@@ -62,9 +65,12 @@
 %%        , {"/pg/simu_mcht_refund_final", wh_simu_mcht_refund_final, []}
         , {simu_mcht_collect_url, wh_simu_mcht_collect, []}
         , {simu_mcht_collect_final_url, wh_simu_mcht_collect_final, []}
+        , {simu_mcht_batch_collect_url, wh_simu_mcht_batch_collect, []}
+        , {simu_mcht_batch_collect_final_url, wh_simu_mcht_batch_collect_final, []}
 
         %% txn handle
         , {txn_collect_url, wh_txn_mcht_req_collect, []}
+        , {txn_batch_collect_url, wh_txn_mcht_req_batch_collect, []}
 
 
       ]}
