@@ -18,9 +18,10 @@
         <option value="00002">信托网-手机</option>
     </select><br>
     商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+    交易日期:<input type="text" name="tranDate" value="{{ tranDate }}"/><br>
     交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
     交易笔数: <input type="text" name="tranCount" value="{{ tranCount }}"/><br>
-    批次号: <input type="text" name="batchNo" value="{{ batchNo }} "/><br>
+    批次号: <input type="text" name="batchNo" value="{{ batchNo }}"/><br>
     文件原始内容:
     <textarea name="fileContentRaw"></textarea><br>
     请求方保留域: <input type="text" name="reqReserved" value="{{ reqReserved }}"/><br>

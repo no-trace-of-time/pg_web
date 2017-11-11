@@ -27,19 +27,20 @@ handle(Req, State) ->
            {_, MerchId} = xfutils:ext_req(<<"merchId">>, PostVals),
            lager:debug("merchId = ~ts", [MerchId]),
 
-%%           ModelMchtReqCollect = pg_protocol:out_2_in(pg_mcht_protocol_req_batch_collect, PostVals),
-%%           {SignString, Signature} = pg_mcht_protocol:sign(pg_mcht_protocol_req_batch_collect, ModelMchtReqCollect),
-%%           lager:debug("SignString = ~ts~n", [SignString]),
-
-
            {_, FileContentRaw} = xfutils:ext_req(<<"fileContentRaw">>, PostVals),
            lager:debug("FileContentRaw = ~p", [FileContentRaw]),
+
+
            %% FileContent -- deflate + base64
-           [BinCompressed] = deflate(FileContentRaw),
+           BinCompressed = xfutils:deflate(FileContentRaw),
            lager:debug("BinCompressed = ~p", [BinCompressed]),
            FileContent = base64:encode(BinCompressed),
            lager:debug("FileContent= ~ts", [FileContent]),
 
+           ModelMchtReqCollect = pg_protocol:out_2_in(pg_mcht_protocol_req_batch_collect,
+             PostVals ++ [{<<"fileContent">>, FileContent}]),
+           {SignString, Signature} = pg_mcht_protocol:sign(pg_mcht_protocol_req_batch_collect, ModelMchtReqCollect),
+           lager:debug("SignString = ~ts~n", [SignString]),
 
            Keys = [
              <<"orderDesc">>
@@ -57,8 +58,8 @@ handle(Req, State) ->
              [
                {actionUrl, pg_web:get_config_url(txn_batch_collect_url)}
                , {merchId, MerchId}
-%%               , {signString, SignString}
-%%               , {signature, Signature}
+               , {signString, SignString}
+               , {signature, Signature}
                , {fileContent, FileContent}
              ],
 
@@ -82,10 +83,3 @@ handle(Req, State) ->
 terminate(_Reason, _Req, _State) ->
   ok.
 
-deflate(Bin) when is_binary(Bin) ->
-  Z = zlib:open(),
-  ok = zlib:deflateInit(Z, default),
-
-  BinCompressed = zlib:deflate(Z, Bin, finish),
-  zlib:close(Z),
-  BinCompressed.
