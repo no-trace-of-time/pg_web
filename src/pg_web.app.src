@@ -30,9 +30,10 @@
       ]},
     {env, [
       {web_app_prefix, <<"pg">>}
-      , {web_app_hostname, <<"http://localhost:8888">>}
+      , {web_app_hostname, <<"http://test.trust-one.com:8890">>}
       , {http_port, 8888}
-      , {http_bind_ip, {127, 0, 0, 1}}
+%%      , {http_bind_ip, {127, 0, 0, 1}}
+      , {http_bind_ip, {0, 0, 0, 0}}
       , {http_acceptors, 100}
 
       , {simu_mcht_front_url, <<"simu_mcht_front_succ">>}
@@ -42,8 +43,11 @@
       , {simu_mcht_batch_collect_final_url, <<"simu_mcht_batch_collect_final">>}
       , {simu_mcht_batch_collect_url, <<"simu_mcht_batch_collect">>}
 
+      , {simu_echo_url, <<"echo">>}
+
       , {txn_collect_url, <<"collect">>}
       , {txn_batch_collect_url, <<"batch_collect">>}
+      , {txn_info_collect_url, <<"info_collect">>}
 
       %% waiting ...
       , {waiting_for_func, {mnesia, wait_for_tables, [[up_txn_log, mcht_txn_log], 40000]}}
@@ -68,9 +72,13 @@
         , {simu_mcht_batch_collect_url, wh_simu_mcht_batch_collect, []}
         , {simu_mcht_batch_collect_final_url, wh_simu_mcht_batch_collect_final, []}
 
+        , {simu_mcht_back_url, wh_post_echo, []}
+        , {simu_echo_url, wh_post_echo, []}
+
         %% txn handle
         , {txn_collect_url, wh_txn_mcht_req_collect, []}
         , {txn_batch_collect_url, wh_txn_mcht_req_batch_collect, []}
+        , {txn_info_collect_url, wh_txn_up_info_collect, []}
 
 
       ]}
