@@ -1,6 +1,6 @@
 ## Name of the node
 ##-name {{zr_online_gateway}}@127.0.0.1
--sname pg@pg-test
+-sname pg@pg_test
 
 ## Cookie for distributed erlang
 -setcookie pg_xxx
