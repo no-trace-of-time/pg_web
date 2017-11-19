@@ -84,7 +84,8 @@
       ]}
     ]},
     {modules, [
-      pg_web_app
+      erlydtl
+      , pg_web_app
       , pg_web_sup
     ]},
 
