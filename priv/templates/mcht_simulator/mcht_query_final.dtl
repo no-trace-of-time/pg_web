@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+</head>
+
+<body>
+<form id="collect" action="{{ actionUrl }}" target="_blank" method="post">
+    商户号:<input type="text" name="merchId" value="{{ merchId}}"/><br>
+    商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+    交易日期:<input type="text" name="tranDate" value="{{ tranDate }}"/><br>
+    交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
+    签名:<input type="text" name="signature" value="{{ signature }}"/><br>
+
+    <input type="submit" value="提交查询">
+</form>
+<br>请求的签名串: [ {{ signString }} ] <br>
+</body>
+
+</html>
