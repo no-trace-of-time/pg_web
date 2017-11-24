@@ -27,6 +27,7 @@
         , pg_mcht_enc
         , pg_store
         , pg_txn
+        , pg_quota
       ]},
     {env, [
       {web_app_prefix, <<"pg">>}
