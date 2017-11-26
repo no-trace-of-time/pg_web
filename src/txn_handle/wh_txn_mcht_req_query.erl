@@ -35,10 +35,11 @@ handle(Req, State) ->
            _:X ->
              io_lib:format("Error = ~p<p>Stacktrace = ~p<p>PostVals = ~p",
                [X,
-                 lager:pr_stacktrace(erlang:get_stacktrace()),
+                 list_to_binary(lager:pr_stacktrace(erlang:get_stacktrace())),
                  PV
                ])
          end,
 
+  lager:debug("Return Body = ~p", [Body]),
   {ok, Req3} = cowboy_req:reply(200, [{<<"content-type">>, <<"text/html;charset=UTF-8">>}], Body, Req2),
   {ok, Req3, State}.

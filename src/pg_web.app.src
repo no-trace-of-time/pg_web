@@ -28,6 +28,7 @@
         , pg_store
         , pg_txn
         , pg_quota
+        , pg_redoer
       ]},
     {env, [
       {web_app_prefix, <<"pg">>}
