@@ -46,6 +46,8 @@
       , {simu_mcht_batch_collect_url, <<"simu_mcht_batch_collect">>}
       , {simu_mcht_query_url, <<"simu_mcht_query">>}
       , {simu_mcht_query_final_url, <<"simu_mcht_query_final">>}
+      , {simu_mcht_bankcard_verify_url, <<"simu_mcht_bankcard_verify">>}
+      , {simu_mcht_bankcard_verify_final_url, <<"simu_mcht_bankcard_verify_final">>}
 
       , {simu_echo_url, <<"echo">>}
 
@@ -53,6 +55,7 @@
       , {txn_batch_collect_url, <<"batch_collect">>}
       , {txn_info_collect_url, <<"info_collect">>}
       , {txn_query_url, <<"query">>}
+      , {txn_bankcard_verify_url, <<"bankcard_verify">>}
 
       %% waiting ...
       , {waiting_for_func, {mnesia, wait_for_tables, [[up_txn_log, mcht_txn_log], 40000]}}
@@ -78,6 +81,8 @@
         , {simu_mcht_batch_collect_final_url, wh_simu_mcht_batch_collect_final, []}
         , {simu_mcht_query_url, wh_simu_mcht_query, []}
         , {simu_mcht_query_final_url, wh_simu_mcht_query_final, []}
+        , {simu_mcht_bankcard_verify_url, wh_simu_mcht_bankcard_verify, []}
+        , {simu_mcht_bankcard_verify_final_url, wh_simu_mcht_bankcard_verify_final, []}
 
         , {simu_mcht_back_url, wh_post_echo, []}
         , {simu_echo_url, wh_post_echo, []}
